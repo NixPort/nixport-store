@@ -1,0 +1,62 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/NixPort/nixport-store/main/schema/nixport.catalog.v1.schema.json",
+  "title": "nixport.catalog.v1",
+  "description": "Nixport 商店目录（store.json）。只存链接与元信息，MUST NOT 存放分发物。",
+  "type": "object",
+  "required": ["schema", "ports"],
+  "additionalProperties": false,
+  "properties": {
+    "schema": { "const": "nixport.catalog.v1" },
+    "updated": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+      "description": "目录最后更新日期（ISO YYYY-MM-DD）"
+    },
+    "ports": {
+      "type": "array",
+      "maxItems": 500,
+      "items": { "$ref": "#/definitions/port" }
+    }
+  },
+  "definitions": {
+    "httpsUrl": {
+      "type": "string",
+      "pattern": "^https://\\S+$",
+      "maxLength": 500
+    },
+    "port": {
+      "type": "object",
+      "required": ["id", "name", "repo", "cover"],
+      "additionalProperties": true,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9_-]*$",
+          "maxLength": 64,
+          "description": "Port 标识；MUST 与包内 port.json 的 id 一致"
+        },
+        "name": { "type": "string", "minLength": 1, "maxLength": 200 },
+        "version": { "type": "string", "maxLength": 100 },
+        "description": { "type": "string", "maxLength": 2000 },
+        "upstream": { "$ref": "#/definitions/httpsUrl" },
+        "repo": { "$ref": "#/definitions/httpsUrl" },
+        "release": { "$ref": "#/definitions/httpsUrl" },
+        "cover": {
+          "type": "string",
+          "pattern": "^covers/[A-Za-z0-9][A-Za-z0-9_.-]*\\.(webp|png|jpg|jpeg)$",
+          "maxLength": 200,
+          "description": "covers/ 内的相对路径"
+        },
+        "author": { "type": "string", "maxLength": 100 },
+        "tags": {
+          "type": "array",
+          "maxItems": 20,
+          "items": { "type": "string", "minLength": 1, "maxLength": 50 }
+        },
+        "compat": { "type": "string", "maxLength": 200 },
+        "verified": { "type": "boolean" }
+      }
+    }
+  }
+}
