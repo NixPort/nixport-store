@@ -15,6 +15,18 @@
       "tags": ["ps4", "god-of-war", "action", "fex"],
       "compat": "Adreno 6xx/7xx/8xx (Turnip) · ARM64 · Vulkan 1.3",
       "verified": true
+    },
+    {
+      "id": "tlou-remastered-pc",
+      "name": "The Last of Us Remastered",
+      "description": "Experimental ARM64 Linux and Android Port of The Last of Us Remastered (PS4). Requires your own game files.",
+      "upstream": "https://github.com/ravencaio/tlou-remastered-pc",
+      "repo": "https://github.com/zFitness/tlou-remastered-arm",
+      "cover": "covers/tlou-remastered-pc.png",
+      "author": "zFitness",
+      "tags": ["ps4", "the-last-of-us", "action", "fex"],
+      "compat": "Experimental · ARM64 · Vulkan · Adreno 830 (tested)",
+      "verified": false
     }
   ]
 }
